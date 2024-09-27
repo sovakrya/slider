@@ -1,9 +1,9 @@
-type Slide = {
-  img: string;
-  text: string;
-};
+import styled from 'styled-components';
+import { SlideItem } from '../App';
+import SlidesList from './SlidesList';
+
 type PropsSlider = {
-  slides: Slide[];
+  slides: SlideItem[];
   loop: boolean;
   navs: boolean;
   pages: boolean;
@@ -12,8 +12,13 @@ type PropsSlider = {
   delay: number;
 };
 
-export default function Slider(props: PropsSlider) {
-  return <div>
-    
-  </div>
+const SlidesListWrapper = styled.div`
+overflow: hidden;
+position: relative
+`
+
+export default function Slider(props: {slides: SlideItem[]}) {
+  return <SlidesListWrapper>
+    <SlidesList slides={props.slides}/>
+  </SlidesListWrapper>
 }
