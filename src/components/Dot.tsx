@@ -1,21 +1,23 @@
-import { useState } from "react";
 import styled from "styled-components";
 
-export default function Dot() {
-  const [isSelected, setIsSelected] = useState(false);
-
-  const DotNotSelected = styled.div`
-    heigth: 50px;
-    width: 50px;
-    background-color: rgb(155, 160, 154);
+export default function Dot(props: { currentDot: number; slide: number }) {
+  const Dot = styled.div`
+    height: 30px;
+    width: 30px;
+    border-radius: 50px;
+    
   `;
-  const DotSelected = styled(DotNotSelected)`
-    background-color: rgb(107, 110, 106);
+
+  const DotNotSelected = styled(Dot)`
+    background-color: rgb(182, 190, 182);;
+  `;
+  const DotSelected = styled(Dot)`
+    background-color: rgb(128, 134, 128);
   `;
 
   return (
     <>
-      {!isSelected ? (
+      {props.currentDot !== props.slide ? (
         <DotNotSelected></DotNotSelected>
       ) : (
         <DotSelected></DotSelected>

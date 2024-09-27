@@ -3,6 +3,7 @@ import { SlideItem } from "../App";
 
 
 export default function Slide(props: {slide: SlideItem}) {
+    
 
 
   const SlideItemMainBox = styled.div`

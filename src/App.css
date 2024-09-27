@@ -1,7 +1,3 @@
 .dfsf{
-    display: flex;
-    justify-content: space-between;
-    z-index: 1;
-    cursor: pointer;
-    position: absolute;
+ color: rgb(128, 134, 128);
 }

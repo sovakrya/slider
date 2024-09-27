@@ -3,20 +3,19 @@ import { SlideItem } from "../App";
 import Arrows from "./Arrows";
 import { useState } from "react";
 import Slide from "./Slide";
+import Dots from "./Dots";
 
-type PropsSlider = {
-  slides: SlideItem[];
-  loop: boolean;
-  navs: boolean;
-  pages: boolean;
-  auto: () => void;
-  stopMouseHover: () => void;
-  delay: number;
-};
+// type PropsSlider = {
+//   slides: SlideItem[];
+//   loop: boolean;
+//   navs: boolean;
+//   pages: boolean;
+//   auto: () => void;
+//   stopMouseHover: () => void;
+//   delay: number;
+// };
 
 const SlidesListWrapper = styled.div`
-  overflow: hidden;
-  position: relative;
 `;
 
 export default function Slider(props: { slides: SlideItem[] }) {
@@ -48,7 +47,13 @@ export default function Slider(props: { slides: SlideItem[] }) {
         changeSlideLeft={changeSlideLeft}
         changeSlideRight={changeSlideRight}
       />
-      <Slide slide={props.slides[slide]} />
+
+    
+      <div>
+        <span>{`${slide + 1}/${props.slides.length}`}</span>
+        <Slide slide={props.slides[slide]} />
+        <Dots slidesCount={props.slides.length} slide={slide} />
+      </div>
     </SlidesListWrapper>
   );
 }
