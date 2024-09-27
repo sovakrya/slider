@@ -2,7 +2,7 @@ import styled from "styled-components";
 import arrow from "../assets/icons/arrow.svg";
 import { useState } from "react";
 
-export default function Arrows(props: {onPushArrow: () => void}) {
+export default function Arrows(props: {changeSlideLeft: () => void, changeSlideRight: () => void}) {
 
 
 
@@ -15,6 +15,7 @@ export default function Arrows(props: {onPushArrow: () => void}) {
   const Arrow = styled.img `
   position: absolute;
   bottom: 50%;
+
 
   &:hover {
       cursor: pointer;
@@ -31,8 +32,8 @@ export default function Arrows(props: {onPushArrow: () => void}) {
   `;
   return (
     <ArrowsBox>
-      <ArrowLeft src={arrow} onClick={props.onPushArrow}></ArrowLeft>
-      <ArrowRight src={arrow} onClick={props.onPushArrow}></ArrowRight>
+      <ArrowLeft src={arrow} onClick={props.changeSlideLeft}></ArrowLeft>
+      <ArrowRight src={arrow} onClick={props.changeSlideRight}></ArrowRight>
     </ArrowsBox>
   );
 }

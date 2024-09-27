@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { SlideItem } from "../App";
 
-export default function Slide(props: { slideItem: SlideItem; key: string, }) {
+
+export default function Slide(props: {slide: SlideItem}) {
+
+
   const SlideItemMainBox = styled.div`
     display: flex;
     flex-direction: column;
-    flex: 1 0 100%;
-    position: relative;
     align-items: center;
     gap: 26px;
   `;
@@ -19,8 +20,8 @@ export default function Slide(props: { slideItem: SlideItem; key: string, }) {
 
   return (
     <SlideItemMainBox>
-      <img src={props.slideItem.img} height={900} width={900}/>
-      <SlideTitle>{props.slideItem.text}</SlideTitle>
+      <img src={props.slide.img} height={900} width={900}/>
+      <SlideTitle>{props.slide.text}</SlideTitle>
     </SlideItemMainBox>
   );
 }
