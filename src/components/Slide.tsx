@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { SlideItem } from "../App";
 
-export default function Slide(props: { slideItem: SlideItem; key: string }) {
+export default function Slide(props: { slideItem: SlideItem; key: string, }) {
   const SlideItemMainBox = styled.div`
     display: flex;
     flex-direction: column;

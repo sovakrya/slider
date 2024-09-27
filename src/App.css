@@ -1,4 +1,7 @@
 .dfsf{
     display: flex;
-    padding: 24px;
+    justify-content: space-between;
+    z-index: 1;
+    cursor: pointer;
+    position: absolute;
 }
