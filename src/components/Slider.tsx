@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import { SlideItem } from "../App";
 import Arrows from "./Arrows";
-import { useState } from "react";
+import React, { useState } from "react";
 import Slide from "./Slide";
 import Dots from "./Dots";
+
 
 // type PropsSlider = {
 //   slides: SlideItem[];
@@ -15,8 +16,11 @@ import Dots from "./Dots";
 //   delay: number;
 // };
 
-const SlidesListWrapper = styled.div`
-`;
+type SliderContextType = {
+  slide: number;
+  setSlide: (slide: number) => void;
+};
+export const SliderContext = React.createContext<SliderContextType | null>(null);
 
 export default function Slider(props: { slides: SlideItem[] }) {
   const [slide, setSlide] = useState(0);
@@ -41,19 +45,26 @@ export default function Slider(props: { slides: SlideItem[] }) {
     return;
   }
 
+  function goToSlide(dotNumber: number) {
+    setSlide(dotNumber);
+  }
+
+  const SlidesListWrapper = styled.div``;
+
   return (
     <SlidesListWrapper>
-      <Arrows
-        changeSlideLeft={changeSlideLeft}
-        changeSlideRight={changeSlideRight}
-      />
+      <SliderContext.Provider value={{slide, setSlide}}>
+        <Arrows
+          changeSlideLeft={changeSlideLeft}
+          changeSlideRight={changeSlideRight}
+        />
 
-    
-      <div>
-        <span>{`${slide + 1}/${props.slides.length}`}</span>
-        <Slide slide={props.slides[slide]} />
-        <Dots slidesCount={props.slides.length} slide={slide} />
-      </div>
+        <div>
+          <span>{`${slide + 1}/${props.slides.length}`}</span>
+          <Slide slide={props.slides[slide]} />
+          <Dots slidesCount={props.slides.length} slide={slide} />
+        </div>
+      </SliderContext.Provider>
     </SlidesListWrapper>
   );
 }
