@@ -9,11 +9,14 @@ export type SlideItem = {
 
 function App() {
   const slides: SlideItem[] = sliders
-
+  let loop = true
+  let navs = true
+  let pags = true
+  let auto = true
 
   return (
     <div className="App">
-      <Slider slides={slides}/>
+      <Slider slides={slides} loop={loop} navs={navs} pags={pags} auto={auto}/>
     </div>
   );
 }

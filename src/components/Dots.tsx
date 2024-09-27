@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Dot from "./Dot";
 
-export default function Dots(props: { slidesCount: number; slide: number; }) {
+export default function Dots(props: { slidesCount: number; slide: number; pags: boolean}) {
   const renderDots = () => {
     const dots = [];
     for (let i = 0; i < props.slidesCount; i++) {
@@ -17,5 +17,5 @@ export default function Dots(props: { slidesCount: number; slide: number; }) {
   justify-content: center;
   `
 
-  return (<DotsWrapper>{renderDots()}</DotsWrapper>);
+  return (<DotsWrapper>{props.pags ? (renderDots()) : <></>}</DotsWrapper>);
 }
