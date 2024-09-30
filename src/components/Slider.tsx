@@ -17,17 +17,26 @@ type PropsSlider = {
   slides: SlideItem[];
   loop: boolean;
   navs: boolean;
-  pags: boolean;
+  pages: boolean;
   auto: boolean;
   stopMouseHover: boolean;
-  delay: number;
+  delay?: number;
 };
 
-export default function Slider(props: PropsSlider) {
+export default function Slider({
+  delay = 5,
+  slides,
+  loop,
+  navs,
+  auto,
+  pages,
+  stopMouseHover,
+}: PropsSlider) {
   const [slide, setSlide] = useState(0);
+  const [autoSlide, setAutoSlide] = useState(auto);
 
   function changeSlideRight() {
-    if (props.loop) {
+    if (loop) {
       if (slide === 2) {
         setSlide(0);
         return;
@@ -43,7 +52,7 @@ export default function Slider(props: PropsSlider) {
   }
 
   function changeSlideLeft() {
-    if (props.loop) {
+    if (loop) {
       if (slide === 0) {
         setSlide(2);
         return;
@@ -58,23 +67,29 @@ export default function Slider(props: PropsSlider) {
     return;
   }
 
+  function onSlideMouseEnter() {
+    if (!stopMouseHover) {
+      return;
+    }
+    setAutoSlide(false);
+  }
+
+  function onSlideMouseLeave() {
+    if (!stopMouseHover) {
+      return;
+    }
+    setAutoSlide(true);
+  }
+
   useEffect(() => {
-    if (!props.auto) {
+    if (!autoSlide) {
       return;
     }
 
-    if (props.delay) {
+    if (delay) {
       const interval = setInterval(() => {
         changeSlideRight();
-      }, props.delay * 1000);
-
-      return () => {
-        clearInterval(interval);
-      };
-    } else {
-      const interval = setInterval(() => {
-        changeSlideRight();
-      }, 5000);
+      }, delay * 1000);
 
       return () => {
         clearInterval(interval);
@@ -90,17 +105,17 @@ export default function Slider(props: PropsSlider) {
         <Arrows
           changeSlideLeft={changeSlideLeft}
           changeSlideRight={changeSlideRight}
-          navs={props.navs}
+          navs={navs}
         />
 
         <div>
-          <span>{`${slide + 1}/${props.slides.length}`}</span>
-          <Slide slide={props.slides[slide]} />
-          <Dots
-            slidesCount={props.slides.length}
-            slide={slide}
-            pags={props.pags}
+          <span>{`${slide + 1}/${slides.length}`}</span>
+          <Slide
+            slide={slides[slide]}
+            onSlideMouseEnter={onSlideMouseEnter}
+            onSlideMouseLeave={onSlideMouseLeave}
           />
+          <Dots slidesCount={slides.length} slide={slide} pages={pages} />
         </div>
       </SliderContext.Provider>
     </SlidesListWrapper>

@@ -11,10 +11,10 @@ function App() {
   const slides: SlideItem[] = sliders;
   let loop = true;
   let navs = true;
-  let pags = true;
-  let auto = false;
-  let stopMauseHover = true;
-  let delay = 0;
+  let pages = true;
+  let auto = true;
+  let stopMouseHover = true;
+  let delay = 2;
 
   return (
     <div className="App">
@@ -22,10 +22,10 @@ function App() {
         slides={slides}
         loop={loop}
         navs={navs}
-        pags={pags}
+        pages={pages}
         auto={auto}
         delay={delay}
-        stopMouseHover={stopMauseHover}
+        stopMouseHover={stopMouseHover}
       />
     </div>
   );
