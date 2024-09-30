@@ -13,6 +13,7 @@ function App() {
   let navs = true;
   let pags = true;
   let auto = false;
+  let stopMauseHover = true;
   let delay = 0;
 
   return (
@@ -24,6 +25,7 @@ function App() {
         pags={pags}
         auto={auto}
         delay={delay}
+        stopMouseHover={stopMauseHover}
       />
     </div>
   );

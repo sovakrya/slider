@@ -13,14 +13,17 @@ export const SliderContext = React.createContext<SliderContextType | null>(
   null
 );
 
-export default function Slider(props: {
+type PropsSlider = {
   slides: SlideItem[];
   loop: boolean;
   navs: boolean;
   pags: boolean;
   auto: boolean;
+  stopMouseHover: boolean;
   delay: number;
-}) {
+};
+
+export default function Slider(props: PropsSlider) {
   const [slide, setSlide] = useState(0);
 
   function changeSlideRight() {
