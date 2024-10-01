@@ -1,41 +1,36 @@
 import styled from "styled-components";
 import arrow from "../assets/icons/arrow.svg";
-import { useState } from "react";
+
+const Arrow = styled.img`
+  position: absolute;
+  bottom: 50%;
+  z-index: 1;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const ArrowRight = styled(Arrow)`
+  right: 0;
+`;
+
+const ArrowLeft = styled(Arrow)`
+  transform: rotate(180deg);
+`;
 
 export default function Arrows(props: {
   changeSlideLeft: () => void;
   changeSlideRight: () => void;
   navs: boolean;
 }) {
-  const ArrowsBox = styled.div`
-    display: flex;
-    justify-content: space-between;
-    z-index: 1;
-  `;
-
-  const Arrow = styled.img`
-    position: absolute;
-    bottom: 50%;
-
-    &:hover {
-      cursor: pointer;
-    }
-  `;
-
-  const ArrowRight = styled(Arrow)`
-    right: 0;
-  `;
-
-  const ArrowLeft = styled(Arrow)`
-    transform: rotate(180deg);
-  `;
   return (
     <>
       {props.navs ? (
-        <ArrowsBox>
+        <>
           <ArrowLeft src={arrow} onClick={props.changeSlideLeft}></ArrowLeft>
           <ArrowRight src={arrow} onClick={props.changeSlideRight}></ArrowRight>
-        </ArrowsBox>
+        </>
       ) : (
         <></>
       )}

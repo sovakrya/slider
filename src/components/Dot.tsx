@@ -2,6 +2,22 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { SliderContext } from "./Slider";
 
+const DotItem = styled.div`
+  height: 30px;
+  width: 30px;
+  border-radius: 50px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const DotNotSelected = styled(DotItem)`
+  background-color: rgb(182, 190, 182);
+`;
+const DotSelected = styled(DotItem)`
+  background-color: rgb(128, 134, 128);
+`;
+
 export default function Dot(props: {
   currentDot: number;
   slideNumber: number;
@@ -14,22 +30,6 @@ export default function Dot(props: {
     }
     slideObj.setSlide(props.currentDot);
   }
-
-  const Dot = styled.div`
-    height: 30px;
-    width: 30px;
-    border-radius: 50px;
-    &:hover {
-    cursor: pointer;
-    }
-  `;
-
-  const DotNotSelected = styled(Dot)`
-    background-color: rgb(182, 190, 182);
-  `;
-  const DotSelected = styled(Dot)`
-    background-color: rgb(128, 134, 128);
-  `;
 
   return (
     <>

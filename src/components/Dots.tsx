@@ -1,6 +1,12 @@
 import styled from "styled-components";
 import Dot from "./Dot";
 
+const DotsWrapper = styled.div`
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+`;
+
 export default function Dots(props: {
   slidesCount: number;
   slide: number;
@@ -14,12 +20,6 @@ export default function Dots(props: {
 
     return dots;
   };
-
-  const DotsWrapper = styled.div`
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-  `;
 
   return <DotsWrapper>{props.pages ? renderDots() : <></>}</DotsWrapper>;
 }

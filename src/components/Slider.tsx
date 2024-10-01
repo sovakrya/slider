@@ -23,6 +23,19 @@ type PropsSlider = {
   delay?: number;
 };
 
+const MainSliderBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+const SlidesListWrapper = styled.div`
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+`;
+
 export default function Slider({
   delay = 5,
   slides,
@@ -32,17 +45,17 @@ export default function Slider({
   pages,
   stopMouseHover,
 }: PropsSlider) {
-  const [slide, setSlide] = useState(0);
+  const [currentIdx, setSlide] = useState(0);
   const [autoSlide, setAutoSlide] = useState(auto);
 
   function changeSlideRight() {
     if (loop) {
-      if (slide === 2) {
+      if (currentIdx === 2) {
         setSlide(0);
         return;
       }
     } else {
-      if (slide === 2) {
+      if (currentIdx === 2) {
         return;
       }
     }
@@ -53,12 +66,12 @@ export default function Slider({
 
   function changeSlideLeft() {
     if (loop) {
-      if (slide === 0) {
+      if (currentIdx === 0) {
         setSlide(2);
         return;
       }
     } else {
-      if (slide === 0) {
+      if (currentIdx === 0) {
         return;
       }
     }
@@ -68,6 +81,10 @@ export default function Slider({
   }
 
   function onSlideMouseEnter() {
+    if (!auto) {
+      return;
+    }
+
     if (!stopMouseHover) {
       return;
     }
@@ -75,6 +92,10 @@ export default function Slider({
   }
 
   function onSlideMouseLeave() {
+    if (!auto) {
+      return;
+    }
+
     if (!stopMouseHover) {
       return;
     }
@@ -86,38 +107,69 @@ export default function Slider({
       return;
     }
 
-    if (delay) {
-      const interval = setInterval(() => {
-        changeSlideRight();
-      }, delay * 1000);
+    const interval = setInterval(() => {
+      changeSlideRight();
+    }, delay * 1000);
 
-      return () => {
-        clearInterval(interval);
-      };
-    }
+    return () => {
+      clearInterval(interval);
+    };
   });
 
-  const SlidesListWrapper = styled.div``;
+  const visibleSlides: SlideItem[] = [];
+
+  for (let i = currentIdx; i < currentIdx + 3; i++) {
+    let idx = i - 1;
+    if (idx < 0) {
+      visibleSlides.push(slides[slides.length - 1]);
+      continue;
+    }
+
+    if (idx >= slides.length) {
+      visibleSlides.push(slides[0]);
+      continue;
+    }
+
+    visibleSlides.push(slides[idx]);
+  }
 
   return (
-    <SlidesListWrapper>
-      <SliderContext.Provider value={{ slide, setSlide }}>
+    <MainSliderBox>
+      <SliderContext.Provider value={{ slide: currentIdx, setSlide }}>
         <Arrows
           changeSlideLeft={changeSlideLeft}
           changeSlideRight={changeSlideRight}
           navs={navs}
         />
 
-        <div>
-          <span>{`${slide + 1}/${slides.length}`}</span>
+        <span>{`${currentIdx + 1}/${slides.length}`}</span>
+
+        <SlidesListWrapper>
           <Slide
-            slide={slides[slide]}
+            slide={visibleSlides[0]}
             onSlideMouseEnter={onSlideMouseEnter}
             onSlideMouseLeave={onSlideMouseLeave}
+            key={visibleSlides[0].id}
+            currentIndex={-1}
           />
-          <Dots slidesCount={slides.length} slide={slide} pages={pages} />
-        </div>
+          <Slide
+            slide={visibleSlides[1]}
+            onSlideMouseEnter={onSlideMouseEnter}
+            onSlideMouseLeave={onSlideMouseLeave}
+            key={visibleSlides[1].id}
+            currentIndex={0}
+          />
+          <Slide
+            slide={visibleSlides[2]}
+            onSlideMouseEnter={onSlideMouseEnter}
+            onSlideMouseLeave={onSlideMouseLeave}
+            key={visibleSlides[2].id}
+            currentIndex={1}
+          />
+        </SlidesListWrapper>
+
+        <Dots slidesCount={slides.length} slide={currentIdx} pages={pages} />
       </SliderContext.Provider>
-    </SlidesListWrapper>
+    </MainSliderBox>
   );
 }

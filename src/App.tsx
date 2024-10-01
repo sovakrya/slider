@@ -3,6 +3,7 @@ import Slider from "./components/Slider";
 import sliders from "./sliders.json";
 
 export type SlideItem = {
+  id: number;
   img: string;
   text: string;
 };
@@ -12,7 +13,7 @@ function App() {
   let loop = true;
   let navs = true;
   let pages = true;
-  let auto = true;
+  let auto = false;
   let stopMouseHover = true;
   let delay = 2;
 
