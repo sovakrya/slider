@@ -25,7 +25,7 @@ export default function Slide(props: {
   return (
     <SlideItemMainBox
       style={{
-        transform: `translateX(${props.currentIndex * 100}%)`,
+        transform: `translateX(-${props.currentIndex * 100}%)`,
       }}
     >
       <img

@@ -13,7 +13,7 @@ function App() {
   let loop = true;
   let navs = true;
   let pages = true;
-  let auto = false;
+  let auto = true;
   let stopMouseHover = true;
   let delay = 2;
 

@@ -116,23 +116,6 @@ export default function Slider({
     };
   });
 
-  const visibleSlides: SlideItem[] = [];
-
-  for (let i = currentIdx; i < currentIdx + 3; i++) {
-    let idx = i - 1;
-    if (idx < 0) {
-      visibleSlides.push(slides[slides.length - 1]);
-      continue;
-    }
-
-    if (idx >= slides.length) {
-      visibleSlides.push(slides[0]);
-      continue;
-    }
-
-    visibleSlides.push(slides[idx]);
-  }
-
   return (
     <MainSliderBox>
       <SliderContext.Provider value={{ slide: currentIdx, setSlide }}>
@@ -145,27 +128,15 @@ export default function Slider({
         <span>{`${currentIdx + 1}/${slides.length}`}</span>
 
         <SlidesListWrapper>
-          <Slide
-            slide={visibleSlides[0]}
-            onSlideMouseEnter={onSlideMouseEnter}
-            onSlideMouseLeave={onSlideMouseLeave}
-            key={visibleSlides[0].id}
-            currentIndex={-1}
-          />
-          <Slide
-            slide={visibleSlides[1]}
-            onSlideMouseEnter={onSlideMouseEnter}
-            onSlideMouseLeave={onSlideMouseLeave}
-            key={visibleSlides[1].id}
-            currentIndex={0}
-          />
-          <Slide
-            slide={visibleSlides[2]}
-            onSlideMouseEnter={onSlideMouseEnter}
-            onSlideMouseLeave={onSlideMouseLeave}
-            key={visibleSlides[2].id}
-            currentIndex={1}
-          />
+          {slides.map((slide) => (
+            <Slide
+              slide={slide}
+              key={slide.id}
+              currentIndex={currentIdx}
+              onSlideMouseEnter={onSlideMouseEnter}
+              onSlideMouseLeave={onSlideMouseLeave}
+            />
+          ))}
         </SlidesListWrapper>
 
         <Dots slidesCount={slides.length} slide={currentIdx} pages={pages} />
